@@ -6,20 +6,49 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  Image
+  Image,
+  ActivityIndicator
 } from 'react-native';
 import {h, w, customFont} from '../components/variable/dimension'
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-import {client_token, base_url} from '../../config/api'
+import {client_token, base_url, client_id, client_secret} from '../../config/api'
 import {branchName, tagArray, activityGroup, ratingColor, paginationCount} from '../components/convert/wordConvert'
 
 class Home extends Component {
   state = {
     result : null,
     page : 0,
-    maxPage : 0
+    maxPage : 0,
+    client_token : '4mvlMAvdhxuOMjkWpljo5663pP4A9h',
+    isLoading : true,
+    errorMsg : null
+  }
+
+  login = () => {
+    axios({
+      url : `${base_url}/api/v1/auth/token`,
+      method : 'POST',
+      data : {
+        grant_type : 'client_credentials',
+        client_id : `${client_id}`,
+        client_secret : `${client_secret}`
+      }
+    })
+    .then(({data}) => {
+      this.setState({
+        client_token : data.access_token,
+        isLoading : true,
+        errorMsg : null,
+      }, () => this.getDataFromAPI())
+    })
+    .catch(error => {
+      this.setState({
+        isLoading : false,
+        errorMsg : 'Server Error'
+      })
+    })
   }
 
   getDataFromAPI = () => {
@@ -27,7 +56,7 @@ class Home extends Component {
       method : 'GET',
       url : `${base_url}/api/v2/search?page=${this.state.page == 0 ? 1 : this.state.page}&per_page=10&query=coffee&class=provinsi&idx=11`,
       headers : {
-        "Authorization": `Bearer ${client_token}`,
+        "Authorization": `Bearer ${this.state.client_token}`,
         "Content-Type": "application/json",
       }
     })
@@ -37,15 +66,25 @@ class Home extends Component {
           result : {
             ...this.state.result,
             data : [...this.state.result.data, ...data.data]
-          }
+          },
+          isLoading : false,
+          errorMsg : null
         })
       } else {
         this.setState({ 
+          isLoading : false,
+          errorMsg : null,
           result : data,
           page : 1,
           maxPage : paginationCount(data.paginate.count, data.paginate.per_page)
         })
       }
+    })
+    .catch(error => {
+      this.setState({
+        errorMsg : 'Gagal mengambil data, silahkan coba login kembali',
+        isLoading : false
+      })
     })
   }
 
@@ -60,7 +99,7 @@ class Home extends Component {
   }
 
   render(){
-    const { result, page, maxPage } = this.state
+    const { result, page, maxPage, isLoading, errorMsg } = this.state
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" backgroundColor="transparent"/>
@@ -84,8 +123,9 @@ class Home extends Component {
                 justifyContent : 'center',
                 alignItems : 'center'
               }}
+              onPress = {this.login}
             >
-              <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 15}}>Get Authentication</Text>
+              <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 15}}>Login</Text>
             </TouchableOpacity>
           </View>
           <ScrollView
@@ -150,6 +190,16 @@ class Home extends Component {
                   </View>
                 </TouchableOpacity>
               ))
+            }
+            {
+              errorMsg
+              ? <View style={{ marginVertical : 20, justifyContent : 'center', alignItems : 'center'}}><Text style={{color : '#d63031'}}>{errorMsg}</Text></View>
+              : null
+            }
+            {
+              isLoading
+              ? <ActivityIndicator/>
+              : null
             }
             {
               page !== maxPage
