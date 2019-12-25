@@ -13,7 +13,7 @@ import {h, w, customFont} from '../components/variable/dimension'
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-import {client_token, base_url, client_id, client_secret} from '../../config/api'
+import { base_url, client_id, client_secret} from '../../config/api'
 import {branchName, tagArray, activityGroup, ratingColor, paginationCount} from '../components/convert/wordConvert'
 
 class Home extends Component {
@@ -21,7 +21,7 @@ class Home extends Component {
     result : null,
     page : 0,
     maxPage : 0,
-    client_token : '4mvlMAvdhxuOMjkWpljo5663pP4A9h',
+    client_token : '3EoCG0Zg1bvlLlewJdkx17mi99svb9',
     isLoading : true,
     errorMsg : null
   }
@@ -99,7 +99,7 @@ class Home extends Component {
   }
 
   render(){
-    const { result, page, maxPage, isLoading, errorMsg } = this.state
+    const { result, page, maxPage, isLoading, errorMsg, client_token } = this.state
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" backgroundColor="transparent"/>
@@ -146,6 +146,7 @@ class Home extends Component {
                     borderBottomWidth : 0.3,
                     padding : 10
                   }}
+                  onPress={() => this.props.navigation.navigate('Detail', {detailData : { id : _source.id, token : client_token }})}
                 >
                   <Image 
                     // source={require('../../assets/img/tempat-com-logo.png')}

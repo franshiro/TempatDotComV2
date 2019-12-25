@@ -5,15 +5,15 @@ import {
 import { createStackNavigator } from 'react-navigation-stack'
 
 import Home from '../screens/home'
-import Api from '../screens/api'
+import Detail from '../screens/detail'
 
 const AppNavigator = createStackNavigator(
   {
     Home,
-    Api,
+    Detail,
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Detail",
     headerMode: "none"
   }
 );
