@@ -13,7 +13,7 @@ const AppNavigator = createStackNavigator(
     Detail,
   },
   {
-    initialRouteName: "Detail",
+    initialRouteName: "Home",
     headerMode: "none"
   }
 );

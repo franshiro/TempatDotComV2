@@ -4,6 +4,16 @@ export const branchName = (word) => {
   return newWord
 }
 
+export const justTitle = (word) => {
+  let newWord = word.split('-')
+
+  if(newWord){
+    return newWord[0]
+  } else {
+    return ''
+  }
+}
+
 export const tagArray = (tags) => {
   let allTag = []
 
@@ -12,6 +22,37 @@ export const tagArray = (tags) => {
       allTag.push(tags[i].tag.tag)
     }
     return ` - ${allTag.join(' ,')}`
+  } else {
+    return ''
+  }
+}
+export const detailTag = (tags) => {
+  let allTag = []
+
+  if(tags && tags.length > 0){
+    for(let i = 0; i < tags.length; i++){
+      allTag.push(tags[i].tag)
+    }
+    return `${allTag.join(' ,')}`
+  } else {
+    return ''
+  }
+}
+
+export const detailFacility = (value) => {
+  let facilities = []
+
+  if(value && value.length > 0){
+    for(let i = 0; i < value.length; i++){
+      if(value[i].is_strike_out){
+        facilities.push(value[i].facility.name)
+      }
+    }
+    if(facilities.length > 0){
+      return facilities.join(', ')
+    } else {
+      return ''
+    }
   } else {
     return ''
   }

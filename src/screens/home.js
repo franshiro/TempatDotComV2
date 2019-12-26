@@ -146,10 +146,14 @@ class Home extends Component {
                     borderBottomWidth : 0.3,
                     padding : 10
                   }}
-                  onPress={() => this.props.navigation.navigate('Detail', {detailData : { id : _source.id, token : client_token }})}
+                  onPress={() => {
+                    this.props.navigation.navigate('Detail', {
+                      detailData : { 
+                        id : _source.id, 
+                        token : client_token }
+                    })}}
                 >
                   <Image 
-                    // source={require('../../assets/img/tempat-com-logo.png')}
                     source={_source.branch_images ? {uri : _source.branch_images.image_url_thumb} : require('../../assets/img/tempat-com-logo.png')}
                     style={{
                       width : 80,
