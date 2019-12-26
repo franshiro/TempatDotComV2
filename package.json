@@ -5,7 +5,11 @@
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "buildDebug": "(cd android && ./gradlew clean && ./gradlew assembleDebug)",
+    "buildRelease": "(cd android && ./gradlew clean && ./gradlew assembleRelease)",
+    "sign": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore dcash.keystore android/app/build/outputs/apk/app-release-unsigned.apk alias_name",
+    "zip": "~/Library/Android/Sdk/build-tools/23.0.1/zipalign -v 4 android/app/build/outputs/apk/app-release-unsigned.apk android/app/build/outputs/apk/app-release.apk"
   },
   "dependencies": {
     "react": "16.8.6",

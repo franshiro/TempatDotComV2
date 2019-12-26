@@ -21,7 +21,7 @@ class Home extends Component {
     result : null,
     page : 0,
     maxPage : 0,
-    client_token : '3EoCG0Zg1bvlLlewJdkx17mi99svb9',
+    client_token : 'F47NoEhc2YGnAEoDqaP3VjPHZeHUtm',
     isLoading : true,
     errorMsg : null
   }

@@ -31,7 +31,7 @@ const convertDays = (day) => {
 
 export const thisDay = (value) => {
   let d = new Date()
-  let newDate = d.getDate() + value + 1
+  let newDate = d.getDate() + value
   d.setDate(newDate)
 
   let day = d.getDay()
@@ -89,7 +89,7 @@ const convertMonth = (value) => {
 
 export const cekDate = (value) => {
   let d = new Date()
-  let newDate = d.getDate() + value + 1
+  let newDate = d.getDate() + value 
   d.setDate(newDate)
   let date = d.getDate()
 
@@ -98,7 +98,7 @@ export const cekDate = (value) => {
 
 export const cekMonth = (value) => {
   let d = new Date()
-  let newDate = d.getDate() + value + 1
+  let newDate = d.getDate() + value
   d.setDate(newDate)
   let month = d.getMonth() + 1
 
