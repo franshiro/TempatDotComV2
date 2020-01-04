@@ -7,9 +7,10 @@ import {
   Image,
   StyleSheet
 } from "react-native";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-import { h, w } from "./variable/dimension";
+import { w } from "./variable/dimension";
 import {thisDay, cekDate, cekMonth} from './convert/date'
 
 const arrayDays = [0,1,2,3,4,5,6]
@@ -100,13 +101,13 @@ class HappyHours extends Component {
             source={require("../../assets/img/happyhours.png")}
             resizeMode="cover"
             style={{
-              height: 60,
-              width: 60
+              height: hp(6),
+              width: hp(6)
             }}
           />
           <View style={styles.headerText}>
             <Text style={styles.title}>Happy Hours!</Text>
-            <Text style={{ fontSize: 13, color: "#fff" }}>
+            <Text style={{ fontSize: hp(1.5), color: "#fff" }}>
               Booked <Text style={{ fontWeight: "bold" }}>1002</Text> times
               since yesterday
             </Text>
@@ -118,11 +119,11 @@ class HappyHours extends Component {
               horizontal
               showsHorizontalScrollIndicator={false}
               style={{
-                height : 60,
+                height : hp(7),
                 width : '100%',
                 backgroundColor : '#dfe4ea',
                 paddingHorizontal : 10,
-                bottom : 0
+                bottom : 0,
               }}
             >
               {
@@ -132,8 +133,8 @@ class HappyHours extends Component {
                     style={styles.tabBar}
                     onPress={() => this.setState({ activeTab : day})}
                   >
-                    <Text style={{ fontSize : 11, color : `${activeTab == day ? 'black': '#576574'}`}}>{thisDay(day)}</Text>
-                    <Text style={{ fontSize : 13, color : `${activeTab == day ? 'black': '#576574'}`}}>{cekDate(day)} <Text style={{fontSize : 11, color : `${activeTab == day ? 'black': '#576574'}`}}>{cekMonth(day)}</Text></Text>
+                    <Text style={{ fontSize : hp(1.3), color : `${activeTab == day ? 'black': '#576574'}`}}>{thisDay(day)}</Text>
+                    <Text style={{ fontSize : hp(1.5), color : `${activeTab == day ? 'black': '#576574'}`}}>{cekDate(day)} <Text style={{fontSize : 11, color : `${activeTab == day ? 'black': '#576574'}`}}>{cekMonth(day)}</Text></Text>
                     {
                       activeTab == day ? <View style={styles.bottomLine}/> : null
                     }
@@ -147,7 +148,7 @@ class HappyHours extends Component {
               horizontal
               showsHorizontalScrollIndicator={false}
               style={{
-                height : 80,
+                height : hp(10),
                 marginLeft : 20,
               }}
             >
@@ -156,9 +157,9 @@ class HappyHours extends Component {
                   <TouchableOpacity
                   key={index}
                     style={{
-                      height : 60,
-                      width : 75,
-                      top : 20,
+                      height : hp(8),
+                      width : hp(10),
+                      top : hp(1),
                       backgroundColor : `${activeButton == list.id ? '#3c40c6' : '#d2dae2'}`,
                       borderRadius : 8,
                       marginRight : 7,
@@ -171,8 +172,8 @@ class HappyHours extends Component {
                   >
                     <View
                       style={{
-                        height : 35,
-                        width : 75,
+                        height : hp(4.5),
+                        width : hp(10),
                         borderBottomLeftRadius : 10,
                         borderBottomRightRadius : 10,
                         backgroundColor : `${activeButton == list.id ? '#575fcf' : '#fff'}`,//'#575fcf',
@@ -180,17 +181,17 @@ class HappyHours extends Component {
                         alignItems : 'center'
                       }}
                     >
-                      <Text style={{ fontWeight : 'bold', fontSize : 25 * this.textSize(list.percent), color : `${activeButton == list.id ? '#fff' : this.textColor(list.percent)}`}}>{100 * list.percent}%</Text>
+                      <Text style={{ fontWeight : 'bold', fontSize : hp(5) * this.textSize(list.percent), color : `${activeButton == list.id ? '#fff' : this.textColor(list.percent)}`}}>{100 * list.percent}%</Text>
                     </View>
                     <View
                       style={{
-                        height : 25,
-                        width : 75,
+                        height : hp(3.5),
+                        width : hp(10),
                         justifyContent : 'center',
                         alignItems : 'center'
                       }}
                     >
-                      <Text style={{fontSize : 11, color : `${activeButton == list.id ? '#fff' : '#747d8c'}`}}>{list.time}</Text>
+                      <Text style={{fontSize : hp(1.3), color : `${activeButton == list.id ? '#fff' : '#747d8c'}`}}>{list.time}</Text>
                     </View>
                   </TouchableOpacity>
                 ))
@@ -205,7 +206,7 @@ class HappyHours extends Component {
             <ScrollView
               showsVerticalScrollIndicator={false}
               style={{
-                height : (h * 0.61) - 142,
+                height : hp(47.5),
                 width : (w * 1) - 80,
               }}
             >
@@ -230,16 +231,16 @@ class HappyHours extends Component {
                       <Image 
                         source={require('../../assets/img/tempat-com-logo.png')}
                         style={{
-                          height : 40,
-                          width : 40,
+                          height : hp(5),
+                          width : hp(5),
                           backgroundColor : 'blue',
                           marginRight : 10,
                           borderRadius : 8
                         }}
                       />
                       <View>
-                        <Text style={{fontSize : 15, fontWeight : 'bold'}}>{item.title}</Text>
-                        <Text style={{fontSize : 12, color : '#747d8c'}}>{item.tags}</Text>
+                        <Text style={{fontSize : hp(1.7), fontWeight : 'bold'}}>{item.title}</Text>
+                        <Text style={{fontSize : hp(1.3), color : '#747d8c'}}>{item.tags}</Text>
                       </View>
                     </View>
                     <View
@@ -253,12 +254,12 @@ class HappyHours extends Component {
                           width : (w * 1) - 200,
                         }}
                       >
-                        <Text style={{ fontSize : 12, color : '#2f3542'}}>{item.desc}</Text>
+                        <Text style={{ fontSize : hp(1.5), color : '#2f3542'}}>{item.desc}</Text>
                       </View>
                       <View
                         style={{
-                          height : 30,
-                          width : 90,
+                          height : hp(3.5),
+                          width : wp(23),
                           borderColor : '#ced6e0',
                           borderWidth : 1,
                           borderRadius : 6,
@@ -268,37 +269,34 @@ class HappyHours extends Component {
                       >
                         <TouchableOpacity
                           style={{
-                            height : 30,
-                            width : 25,
+                            width : wp(7),
                             borderRightWidth : 1,
                             borderRightColor : '#ced6e0',
                             justifyContent : 'center',
                             alignItems : 'center'
                           }}
                         >
-                          <Icon name="minus" size={15} color='#3742fa'/>
+                          <Icon name="minus" size={hp(1.8)} color='#3742fa'/>
                         </TouchableOpacity>
                         <View
                           style={{
-                            height : 30,
-                            width : 40,
+                            width : wp(9),
                             justifyContent : 'center',
                             alignItems : 'center'
                           }}
                         >
-                          <Text style={{fontSize : 15, fontWeight : 'bold', color : '#5352ed'}}>{item.totalBooked}</Text>
+                          <Text style={{fontSize : hp(1.8), fontWeight : 'bold', color : '#5352ed'}}>{item.totalBooked}</Text>
                         </View>
                         <TouchableOpacity
                           style={{
-                            height : 30,
-                            width : 25,
+                            width : wp(7),
                             borderLeftWidth : 1,
                             borderLeftColor : '#ced6e0',
                             justifyContent : 'center',
                             alignItems : 'center'
                           }}
                         >
-                          <Icon name="plus" size={15} color='#3742fa'/>
+                          <Icon name="plus" size={hp(1.8)} color='#3742fa'/>
                         </TouchableOpacity>
                       </View>
                     </View>
@@ -307,19 +305,19 @@ class HappyHours extends Component {
               }
               <TouchableOpacity
                 style={{
-                  height : 40,
+                  height : hp(4),
                   width : '100%',
                   justifyContent : 'center',
                   alignItems : 'center'
                 }}
               >
-                <Text style={{color : '#5352ed', fontWeight : 'bold'}}>SEE MORE  <Icon name='chevron-down'/></Text>
+                <Text style={{fontSize : hp(2), color : '#5352ed', fontWeight : 'bold'}}>SEE MORE  <Icon name='chevron-down'/></Text>
               </TouchableOpacity>
             </ScrollView>
           </View>
         </View>
         <View style={styles.viewer}>
-          <Text style={{color : '#57606f'}}><Text style={{fontWeight : 'bold'}}>25</Text> people are looking at this restaurant right now</Text>
+          <Text style={{fontSize : hp(1.7), color : '#57606f'}}><Text style={{fontWeight : 'bold'}}>25</Text> people are looking at this restaurant right now</Text>
         </View>
       </View>
     );
@@ -327,48 +325,49 @@ class HappyHours extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { alignItems: "center" },
+  container: { height : hp(80), alignItems: "center"},
   headerContaner: {
-    height: 80,
+    height: hp(8),
     width: w * 0.9,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent : 'center',
   },
   headerText: {
-    height: 50,
+    height: hp(5),
     width: w * 0.9 - 60,
     paddingHorizontal: 15,
-    justifyContent: "space-between"
+    justifyContent: 'center',
   },
-  title: { fontWeight: "bold", fontSize: 20, color: "#fff" },
+  title: { fontWeight: "bold", fontSize: hp(2), color: "#fff" },
   contentContainer: {
     width: w * 0.9,
-    height: h * 0.61,
+    height: hp(65),
     backgroundColor: "#fff",
     borderRadius: 10,
     overflow : 'hidden',
-    elevation : 5
+    elevation : 5,
   },
   tabBar : {
-    height : 60,
+    height : hp(7),
     width : 50,
     justifyContent : 'center',
     overflow : 'hidden',
     marginRight : 10,
-    alignItems : 'center'
+    alignItems : 'center',
   },
   bottomLine : {
-    height : 30,
+    height : hp(3),
     width : '100%',
     position : 'absolute',
-    bottom : -24,
+    bottom : hp(-2.4),
     borderRadius : 5,
     backgroundColor : '#341f97'
   },
   viewer: {
     width: w * 0.95,
-    height: h * 0.05,
-    marginTop: 10,
+    height: hp(5),
+    marginTop: hp(1),
     backgroundColor: "#fff",
     borderRadius: 30,
     justifyContent : 'center',

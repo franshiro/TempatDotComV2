@@ -9,6 +9,7 @@ import {
   Image,
   ActivityIndicator
 } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import {h, w, customFont} from '../components/variable/dimension'
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome5'
@@ -23,6 +24,7 @@ class Home extends Component {
     maxPage : 0,
     client_token : 'F47NoEhc2YGnAEoDqaP3VjPHZeHUtm',
     isLoading : true,
+    loadMoreLoading : false,
     errorMsg : null
   }
 
@@ -40,12 +42,14 @@ class Home extends Component {
       this.setState({
         client_token : data.access_token,
         isLoading : true,
+        loadMoreLoading : false,
         errorMsg : null,
       }, () => this.getDataFromAPI())
     })
     .catch(error => {
       this.setState({
         isLoading : false,
+        loadMoreLoading : false,
         errorMsg : 'Server Error'
       })
     })
@@ -68,11 +72,13 @@ class Home extends Component {
             data : [...this.state.result.data, ...data.data]
           },
           isLoading : false,
+          loadMoreLoading : false,
           errorMsg : null
         })
       } else {
         this.setState({ 
           isLoading : false,
+          loadMoreLoading : false,
           errorMsg : null,
           result : data,
           page : 1,
@@ -81,16 +87,14 @@ class Home extends Component {
       }
     })
     .catch(error => {
-      this.setState({
-        errorMsg : 'Gagal mengambil data, silahkan coba login kembali',
-        isLoading : false
-      })
+      this.login()
     })
   }
 
   loadMore = () => {
     this.setState({
-      page : this.state.page + 1
+      page : this.state.page + 1,
+      loadMoreLoading : true,
     }, () => this.getDataFromAPI())
   }
 
@@ -99,39 +103,14 @@ class Home extends Component {
   }
 
   render(){
-    const { result, page, maxPage, isLoading, errorMsg, client_token } = this.state
+    const { result, page, maxPage, isLoading, loadMoreLoading, errorMsg, client_token } = this.state
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" backgroundColor="transparent"/>
-        <SafeAreaView>
-          <View
-            style={{
-              width : w,
-              height : h*0.1,
-              justifyContent : 'center',
-              alignItems : 'center',
-              borderBottomWidth : 0.3,
-              borderBottomColor : '#b2bec3'
-            }}
-          >
-            <TouchableOpacity
-              style={{
-                height : 50,
-                width : w*0.9,
-                borderRadius : 15,
-                backgroundColor : '#81ecec',
-                justifyContent : 'center',
-                alignItems : 'center'
-              }}
-              onPress = {this.login}
-            >
-              <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 15}}>Login</Text>
-            </TouchableOpacity>
-          </View>
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{
-              height : h*0.86
+              height : hp(100)
             }}
           >
             {
@@ -203,9 +182,33 @@ class Home extends Component {
             }
             {
               isLoading
-              ? <ActivityIndicator/>
-              : null
-            }
+                ? 
+                  <View
+                    style={{
+                      height : h * 1,
+                      width : w * 1,
+                      backgroundColor : 'grey',
+                      opacity : 0.5
+                    }}
+                  >
+                    <Text
+                      style={{
+                        top : '49%',
+                        fontWeight : 'bold',
+                        color : '#fff',
+                        fontSize : 20,
+                        textAlign : 'center'
+                      }}
+                    >Loading ...</Text>
+                    <ActivityIndicator
+                      style={{
+                        top : '50%'
+                      }}
+                      size={20}
+                    />
+                  </View>
+                : null
+              }
             {
               page !== maxPage
               ? <View
@@ -227,15 +230,17 @@ class Home extends Component {
                     }}
                     onPress={this.loadMore}
                   >
-                    <Text style={{fontWeight : 'bold', fontSize : 15, color : '#fff'}}>Muat Lebih</Text>
+                    {
+                      loadMoreLoading
+                      ? <ActivityIndicator/>
+                      : <Text style={{fontWeight : 'bold', fontSize : 15, color : '#fff'}}>Muat Lebih</Text>
+                    }
                   </TouchableOpacity>
                 </View>
               : null
             }
             
           </ScrollView>
-          
-        </SafeAreaView>
       </Fragment>
     );
   }

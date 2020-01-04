@@ -7,9 +7,10 @@ import {
   Image,
   StyleSheet
 } from "react-native";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-import { h, w } from "./variable/dimension";
+import { w } from "./variable/dimension";
 import AboutDetail from '../components/aboutDetail'
 import { detailTag, detailFacility } from "./convert/wordConvert";
 
@@ -17,30 +18,6 @@ class About extends Component {
   state = {
     activeTab : '0',
     activeButton : 1,
-  }
-
-  textSize = (value) => {
-    if(value >= 0 && value < 0.3 ){
-      return 0.5
-    }
-    else if(value >= 0.3 && value < 0.5){
-      return 0.6
-    }
-    else if(value >= 0.5){
-      return 0.7
-    }
-  }
-  
-  textColor = (value) => {
-    if(value >= 0 && value < 0.3 ){
-      return '#D980FA'
-    }
-    else if(value >= 0.3 && value < 0.5){
-      return '#9980FA'
-    }
-    else if(value >= 0.5){
-      return '#5758BB'
-    }
   }
 
   render() {
@@ -51,14 +28,14 @@ class About extends Component {
         <View style={styles.headerContaner}>
           <View style={styles.headerText}>
             <Text style={styles.title}>{branch_name}</Text>
-            <Text style={{ fontSize: 13, color: "#fff" }}>{detailTag(tags)}</Text>
+            <Text style={{ fontSize: hp(1.5), color: "#fff" }}>{detailTag(tags)}</Text>
           </View>
         </View>
         <View style={styles.contentContainer}>
           <View>
             <View
               style={{
-                height : 40,
+                height : hp(6),
                 width : '100%',
                 backgroundColor : '#dfe4ea',
                 paddingHorizontal : 10,
@@ -66,7 +43,7 @@ class About extends Component {
                 justifyContent : 'center'
               }}
             >
-              <Text style={{fontSize : 20, fontWeight : 'bold', color : '#636e72'}}>About</Text>
+              <Text style={{fontSize : hp(2.5), fontWeight : 'bold', color : '#636e72'}}>About</Text>
             </View>
           </View>
           <View
@@ -77,7 +54,7 @@ class About extends Component {
             <ScrollView
               showsVerticalScrollIndicator={false}
               style={{
-                height : (h * 0.61)-40,
+                height : hp(60),
                 width : (w * 1) - 80,
               }}
             >
@@ -109,47 +86,48 @@ class About extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { alignItems: "center" },
+  container: { height : hp(80), alignItems: "center"},
   headerContaner: {
-    height: 80,
+    height: hp(8),
     width: w * 0.9,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   headerText: {
-    height: 60,
+    height: hp(5),
     width: w * 0.9 - 60,
-    justifyContent: "space-between"
+    paddingHorizontal: 15,
+    justifyContent: 'center',
   },
-  title: { fontWeight: "bold", fontSize: 20, color: "#fff" },
+  title: { fontWeight: "bold", fontSize: hp(2), color: "#fff" },
   contentContainer: {
     width: w * 0.9,
-    height: h * 0.61,
+    height: hp(65),
     backgroundColor: "#fff",
     borderRadius: 10,
     overflow : 'hidden',
-    elevation : 5
+    elevation : 5,
   },
   tabBar : {
-    height : 60,
+    height : hp(7),
     width : 50,
     justifyContent : 'center',
     overflow : 'hidden',
     marginRight : 10,
-    alignItems : 'center'
+    alignItems : 'center',
   },
   bottomLine : {
-    height : 30,
+    height : hp(3),
     width : '100%',
     position : 'absolute',
-    bottom : -24,
+    bottom : hp(-2.4),
     borderRadius : 5,
     backgroundColor : '#341f97'
   },
   viewer: {
     width: w * 0.95,
-    height: h * 0.05,
-    marginTop: 10,
+    height: hp(5),
+    marginTop: hp(1),
     backgroundColor: "#fff",
     borderRadius: 30,
     justifyContent : 'center',

@@ -3,13 +3,13 @@ import {
   View,
   Text
 } from 'react-native'
-import {h,w} from '../components/variable/dimension'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 
 const AboutDetail = ({title, content}) => {
   return (
     <View
       style={{
-        height : 110,
+        height : hp(15),
         width : '100%',
         borderBottomColor : '#ced6e0',
         borderBottomWidth : 1,
@@ -18,10 +18,10 @@ const AboutDetail = ({title, content}) => {
     >
       <View
         style={{
-          paddingVertical : 10
+          paddingVertical : hp(1)
         }}
       >
-        <Text style={{fontSize : 15, fontWeight : 'bold'}}>{title}</Text>
+        <Text style={{fontSize : hp(2), fontWeight : 'bold'}}>{title}</Text>
       </View>
       <View
         style={{
@@ -34,7 +34,7 @@ const AboutDetail = ({title, content}) => {
             flex : 0.8,
           }}
         >
-          <Text style={{ fontSize : 12, color : '#2f3542', textAlign : 'justify'}}>{content}</Text>
+          <Text style={{ fontSize : hp(1.5), color : '#2f3542', textAlign : 'justify'}}>{content}</Text>
         </View>
       </View>
     </View>

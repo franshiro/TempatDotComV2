@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
   TouchableOpacity,
@@ -8,6 +7,7 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -76,17 +76,17 @@ class Detail extends Component{
   render(){
     const { isLoading, detailResult, errorMessage, activeTab } = this.state
     return (
-      <SafeAreaView style={{ height: h * 0.97}}>
+      <View style={{flex : 1}}>
         <StatusBar barStyle="dark-content" backgroundColor="transparent" />
         <View style={{flexDirection : 'row', justifyContent : 'space-between', alignItems : 'center'}}>
           <TouchableOpacity
-            style={{ height: h * 0.03, marginHorizontal : 20 }}
+            style={{ height: hp(3), marginHorizontal : 20 }}
             onPress={() => this.props.navigation.goBack()}
           >
-            <Text style={{ ...customFont(60), color: "#0984e3" }}> back </Text>
+            <Text style={{ fontSize : hp(2), color: "#0984e3" }}> back </Text>
           </TouchableOpacity>
           <View style={{marginHorizontal : 20}}>
-          <Text style={{fontWeight : 'bold', color :'#2c3e50', fontSize : 20}}>{detailResult && detailResult.brand.brand_name}</Text>
+          <Text style={{fontWeight : 'bold', color :'#2c3e50', fontSize : hp(2)}}>{detailResult && detailResult.brand.brand_name}</Text>
           </View>
         </View>
         <View
@@ -117,13 +117,12 @@ class Detail extends Component{
         </View>
         <View
           style={{
-            height: h * 0.85 - 50,
-            backgroundColor: "#fff"
+            height: hp(80),
           }}
         >
           <View
             style={{
-              height: h * 0.25
+              height: hp(18),
             }}
           >
             <Image
@@ -137,12 +136,12 @@ class Detail extends Component{
           </View>
           <View
             style={{
-              height: "100%",
+              height: hp(80),
               width: w * 1,
               paddingHorizontal: 10,
               position: "absolute",
               top: 0,
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             {
@@ -164,7 +163,7 @@ class Detail extends Component{
         </View>
         <View
           style={{
-            height: h * 0.09,
+            height: hp(7),
             width: w * 1,
             flexDirection: "row",
             alignItems: "center",
@@ -173,7 +172,7 @@ class Detail extends Component{
             left: 0,
             paddingHorizontal: 20,
             borderTopColor : '#ecf0f1',
-            borderTopWidth : 1
+            borderTopWidth : 1,
           }}
         >
           <TouchableOpacity
@@ -198,13 +197,13 @@ class Detail extends Component{
           </TouchableOpacity>
           <TouchableOpacity style={styles.footerButton}>
             <View style={styles.iconFooter}>
-              <Icon name='directions' color='#bdc3c7' size={24}/>
+              <Icon name='directions' color='#bdc3c7' size={hp(2)}/>
             </View>
             <Text style={styles.footerText}>Direction</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
-              height: h * 0.08 - 15,
+              height: hp(5),
               width: w * 0.53 - 40,
               backgroundColor: "#e58e26",
               borderRadius: 8,
@@ -212,10 +211,10 @@ class Detail extends Component{
               alignItems : 'center'
             }}
           >
-            <Text style={{fontSize : 15, color : '#fff', fontWeight : 'bold'}}>BOOK NOW</Text>
+            <Text style={{fontSize : hp(2), color : '#fff', fontWeight : 'bold'}}>BOOK NOW</Text>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -236,29 +235,30 @@ const styles = StyleSheet.create({
     color : '#636e72'
   },
   tabBar : {
-    height : 50,
+    height : hp(5),
     justifyContent : 'center',
     overflow : 'hidden'
   },
   bottomLine : {
-    height : 30,
+    height : hp(3),
     width : '100%',
     position : 'absolute',
-    bottom : -24,
+    bottom : hp(-2.4),
     borderRadius : 12,
     backgroundColor : '#341f97'
   },
   footerButton : {
-    height : (h*0.08) - 15,
+    height : hp(4),
     width : w*0.23,
     alignItems : 'center'
   },
   footerText : {
+    fontSize : hp(1.5),
     color : '#636e72'
   },
   iconFooter : {
-    height : 30,
-    width : 30,
+    height : hp(2),
+    width : hp(2),
     justifyContent : 'center',
     alignItems : 'center'
   }
