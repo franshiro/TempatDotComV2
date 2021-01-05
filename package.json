@@ -12,7 +12,7 @@
     "zip": "~/Library/Android/Sdk/build-tools/23.0.1/zipalign -v 4 android/app/build/outputs/apk/app-release-unsigned.apk android/app/build/outputs/apk/app-release.apk"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "react": "16.8.6",
     "react-native": "0.60.4",
     "react-native-gesture-handler": "^1.5.2",
